@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Steve {
     public static void main(String[] args) {
@@ -6,13 +7,27 @@ public class Steve {
         String divider = "----------";
 
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> userList = new ArrayList<>();
+
+
         while (true) {
             String inpt = sc.nextLine();
             if (inpt.equals("bye")) {
                 break;
             }
+            
+            if (inpt.equals(("list"))) {
+                System.out.println(divider);
+                for (int i = 0; i < userList.size(); i++) {
+                    System.out.println(i + 1 + ". " + userList.get(i));
+                }
+                System.out.println(divider);
+                continue;
+            }
+
+            userList.add(inpt);
             System.out.println(divider);
-            System.out.println(inpt + "? uh...ok");
+            System.out.println("added: " + inpt);
             System.out.println(divider);
         }
 

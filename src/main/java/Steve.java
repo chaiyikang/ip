@@ -13,16 +13,14 @@ public class Steve {
         while (true) {
             try {
                 String inpt = sc.nextLine();
+                Steve.printDivider();
                 String[] inputParts = Steve.parseInput(inpt);
-                System.out.println(inputParts);
                 if (inpt.equals("bye")) {
                     break;
                 }
                 
                 if (inpt.equals(("list"))) {
-                    Steve.printDivider();
                     Steve.listTasks();
-                    Steve.printDivider();
                     continue;
                 }
     
@@ -32,35 +30,37 @@ public class Steve {
                     }
                     int index = Integer.parseInt(inputParts[1]) - 1;
                     if (index < 0 || index > Steve.userList.size() - 1) {
+
                         throw new UserException("Please specify a valid task number.");
                     }
                     if (inputParts[0].equals("mark")) {
                         Steve.userList.get(index).setDone();
+                        System.out.println("Ok, I've marked it!");
                     } else {
                         Steve.userList.get(index).setNotDone();
+                        System.out.println("Okay, I've unmarked it!");
                     }
+                    Steve.listTasks();
+
                     continue;
                 }
     
                 Task newTask = new Task(inpt);
                 Steve.userList.add(newTask);
-                Steve.printDivider();
                 System.out.println("added: " + newTask.getDescription());
-                Steve.printDivider();
                 
             } catch (UserException e) {
                 System.out.println("Bro, don't you know how to use me?");
                 System.out.println(e.getMessage());
-                Steve.printDivider();
             } catch (Exception e) {
-                Steve.printDivider();
                 System.out.println("Uh oh, the guy who made me didn't realise this was gonna happen...");
                 System.out.println(e.getMessage());
+            } finally {
+                Steve.printDivider();
             }
         }
 
 
-        Steve.printDivider();
         System.out.println("Bye! Glad I could help!");
     }
 

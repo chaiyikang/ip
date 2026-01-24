@@ -2,9 +2,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Steve {
+    private static String divider = "----------";
+
     public static void main(String[] args) {
         System.out.println("Hello, I'm Steve!\nWhat can I help you with?");
-        String divider = "----------";
 
         Scanner sc = new Scanner(System.in);
         ArrayList<String> userList = new ArrayList<>();
@@ -17,23 +18,27 @@ public class Steve {
             }
             
             if (inpt.equals(("list"))) {
-                System.out.println(divider);
+                Steve.printDivider();
                 for (int i = 0; i < userList.size(); i++) {
                     boolean done = true;
                     System.out.println(i + 1 + ". " + "[" + (done ? "X" : "") + "] " + userList.get(i));
                 }
-                System.out.println(divider);
+                Steve.printDivider();
                 continue;
             }
 
             userList.add(inpt);
-            System.out.println(divider);
+            Steve.printDivider();
             System.out.println("added: " + inpt);
-            System.out.println(divider);
+            Steve.printDivider();
         }
 
 
-        System.out.println("---------------------");
+        Steve.printDivider();
         System.out.println("Bye! Glad I could help!");
+    }
+
+    private static void printDivider() {
+        System.out.println(Steve.divider);
     }
 }

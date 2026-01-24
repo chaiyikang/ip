@@ -18,7 +18,6 @@ public class Steve {
             
             if (inpt.equals(("list"))) {
                 System.out.println(divider);
-
                 for (int i = 0; i < userList.size(); i++) {
                     boolean done = true;
                     System.out.println(i + 1 + ". " + "[" + (done ? "X" : "") + "] " + userList.get(i));

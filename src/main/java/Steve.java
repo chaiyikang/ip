@@ -43,4 +43,8 @@ public class Steve {
     private static void printDivider() {
         System.out.println(Steve.divider);
     }
+
+    private static String[] parseInput(String input) {
+        return input.split(" ")
+    }
 }

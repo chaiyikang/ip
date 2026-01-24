@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Steve {
-    private static String divider = "----------";
+    private static String divider = "    ____________________________________________________________";
     private static ArrayList<Task> userList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -45,9 +45,50 @@ public class Steve {
                     continue;
                 }
     
-                Task newTask = new Task(inpt);
-                Steve.userList.add(newTask);
-                System.out.println("added: " + newTask.getDescription());
+                if (inputParts[0].equals("todo")) {
+                    if (inputParts.length < 2) {
+                         throw new UserException("The description of a todo cannot be empty.");
+                    }
+                    String desc = inpt.substring(5).trim();
+                    Task newTask = new Todo(desc);
+                    Steve.userList.add(newTask);
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + newTask);
+                    System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+                } else if (inputParts[0].equals("deadline")) {
+                    if (inputParts.length < 2) {
+                         throw new UserException("The description of a deadline cannot be empty.");
+                    }
+                    String[] parts = inpt.substring(9).split(" /by ");
+                    if (parts.length < 2) {
+                         throw new UserException("Please specify a deadline using /by.");
+                    }
+                    Task newTask = new Deadline(parts[0], parts[1]);
+                    Steve.userList.add(newTask);
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + newTask);
+                    System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+                } else if (inputParts[0].equals("event")) {
+                    if (inputParts.length < 2) {
+                         throw new UserException("The description of an event cannot be empty.");
+                    }
+                    String[] parts = inpt.substring(6).split(" /from ");
+                    if (parts.length < 2) {
+                         throw new UserException("Please specify the start time using /from.");
+                    }
+                    String desc = parts[0];
+                    String[] timeParts = parts[1].split(" /to ");
+                    if (timeParts.length < 2) {
+                         throw new UserException("Please specify the end time using /to.");
+                    }
+                    Task newTask = new Event(desc, timeParts[0], timeParts[1]);
+                    Steve.userList.add(newTask);
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + newTask);
+                    System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+                } else {
+                    throw new UserException("I'm sorry, but I don't know what that means :-(");
+                }
                 
             } catch (UserException e) {
                 System.out.println("Bro, don't you know how to use me?");
@@ -65,10 +106,10 @@ public class Steve {
     }
 
     private static void listTasks() {
+        System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < Steve.userList.size(); i++) {
-        System.out.println(i + 1 + ". " + Steve.userList.get(i).toString());
-            }
-
+            System.out.println("     " + (i + 1) + "." + Steve.userList.get(i).toString());
+        }
     }
 
     private static void printDivider() {

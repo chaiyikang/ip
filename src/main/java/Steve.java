@@ -8,7 +8,7 @@ public class Steve {
         System.out.println("Hello, I'm Steve!\nWhat can I help you with?");
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> userList = new ArrayList<>();
+        ArrayList<Task> userList = new ArrayList<>();
 
 
         while (true) {
@@ -20,16 +20,18 @@ public class Steve {
             if (inpt.equals(("list"))) {
                 Steve.printDivider();
                 for (int i = 0; i < userList.size(); i++) {
-                    boolean done = true;
-                    System.out.println(i + 1 + ". " + "[" + (done ? "X" : "") + "] " + userList.get(i));
+                    System.out.println(i + 1 + ". " + userList.get(i).toString());
                 }
                 Steve.printDivider();
                 continue;
             }
 
-            userList.add(inpt);
+
+
+            Task newTask = new Task(inpt);
+            userList.add(newTask);
             Steve.printDivider();
-            System.out.println("added: " + inpt);
+            System.out.println("added: " + newTask.getDescription());
             Steve.printDivider();
         }
 

@@ -8,8 +8,14 @@ todo join sports club
 mark 2
 unmark 1
 list
+delete 2
+list
+delete 1
+list
 todo
 deadline
 event
 blah
+delete
+delete 10
 bye

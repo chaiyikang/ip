@@ -23,6 +23,24 @@ public class Steve {
                     Steve.listTasks();
                     continue;
                 }
+
+                if (inputParts[0].equals("delete")) {
+                    if (inputParts.length < 2) {
+                        throw new UserException("Please specify the task number.");
+                    }
+                    int index = Integer.parseInt(inputParts[1]) - 1;
+                    if (index < 0 || index > Steve.userList.size() - 1) {
+
+                        throw new UserException("Please specify a valid task number.");
+                    }
+                    Task taskToDelete = userList.get(index);
+                    Steve.userList.remove(index);
+                    System.out.println("Poof! The task is deleted: ");
+                    System.out.println("    " + taskToDelete.toString());
+                    Steve.reportListSize();
+                    continue;
+                }
+            
     
                 if (inputParts[0].equals("mark") || inputParts[0].equals("unmark")) {
                     if (inputParts.length < 2) {
@@ -54,7 +72,7 @@ public class Steve {
                     Steve.userList.add(newTask);
                     System.out.println("     Got it. I've added this task:");
                     System.out.println("       " + newTask);
-                    System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+                    Steve.reportListSize();
                 } else if (inputParts[0].equals("deadline")) {
                     if (inputParts.length < 2) {
                          throw new UserException("The description of a deadline cannot be empty.");
@@ -67,7 +85,7 @@ public class Steve {
                     Steve.userList.add(newTask);
                     System.out.println("     Got it. I've added this task:");
                     System.out.println("       " + newTask);
-                    System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+                    Steve.reportListSize();
                 } else if (inputParts[0].equals("event")) {
                     if (inputParts.length < 2) {
                          throw new UserException("The description of an event cannot be empty.");
@@ -85,7 +103,7 @@ public class Steve {
                     Steve.userList.add(newTask);
                     System.out.println("     Got it. I've added this task:");
                     System.out.println("       " + newTask);
-                    System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+                    Steve.reportListSize();
                 } else {
                     throw new UserException("Bruh I don't know what that means :-(");
                 }
@@ -103,6 +121,11 @@ public class Steve {
 
 
         System.out.println("Bye! Glad I could help!");
+    }
+
+    private static void reportListSize() {
+        System.out.println("     Now you have " + Steve.userList.size() + " tasks in the list.");
+
     }
 
     private static void listTasks() {

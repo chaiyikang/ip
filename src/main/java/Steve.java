@@ -10,7 +10,7 @@ import java.io.IOException;
  *
  */
 public class Steve {
-    private static String divider = "    ____________________________________________________________";
+    private static String divider = "    __________________________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     /**

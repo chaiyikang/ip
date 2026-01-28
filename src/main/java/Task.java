@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -27,12 +27,11 @@ public class Task {
         return this.isDone;
     }
 
-
-
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
     }
-    
+
+    public abstract String toFileString();
     
 }

@@ -147,7 +147,10 @@ public class Steve {
                 System.out.println("Bro, don't you know how to use me?");
                 System.out.println(e.getMessage());
             } catch (IllegalArgumentException e) {
-                System.out.println("Bruh I don't know what that means :-(");
+                System.out.println("Invalid command. Commands are:");
+                for (Command c : Command.values()) {
+                    System.out.println(c);
+                }
             } catch (IOException e) {
                 System.out.println("Uh oh, some I/O error occured...Please restart the program");
                 return;

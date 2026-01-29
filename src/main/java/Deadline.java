@@ -1,19 +1,22 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String timeDescription;
+    private LocalDateTime by;
 
     public Deadline (String description, String timeDescription) {
         super(description);
-        this.timeDescription = timeDescription;
+        this.by = this.parseDateTime(timeDescription);
     }
-
+    
     @Override
     public String toString() {
-        return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description + " (by: " + this.timeDescription + ")";
+        return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description + " (by: " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.timeDescription;
+        return "D $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.by;
     }
     
 }

@@ -1,18 +1,21 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     public Event (String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = parseDateTime(start);
+        this.end = parseDateTime(end);
     }
 
     @Override
     public String toString() {
         return "[E][" + (this.isDone ? "X" : " ") + "] " 
-            + this.description + " (from: " + this.start + " to: " + this.end + ")";
-
+            + this.description + " (from: " + start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) 
+            + " to: " + end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
     }
 
     @Override

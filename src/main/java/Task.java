@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -33,5 +37,20 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
+
+    protected LocalDateTime parseDateTime(String timeString) {
+        try {
+            // handles ISO-8601 format for data file
+            return LocalDateTime.parse(timeString);
+        } catch (DateTimeParseException e) {
+            // handles yyyy-MM-dd format
+            try {
+                return java.time.LocalDate.parse(timeString, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
+            } catch (DateTimeParseException e3) {
+                throw new IllegalArgumentException("Invalid date/time format bro. Please use 'yyyy-MM-dd'.");
+            }
+            
+        }
+    }
     
 }

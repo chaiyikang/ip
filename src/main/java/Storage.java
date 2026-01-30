@@ -9,10 +9,10 @@ public class Storage {
 
     private static final String FILE_PATH = "../data/duke.txt";
 
-    private ArrayList<Task> taskList;
+    private TaskList taskList;
 
     public Storage() throws IOException {
-        this.taskList = new ArrayList<>();
+        this.taskList = new TaskList();
         File f = new File(FILE_PATH);
         if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
@@ -55,7 +55,8 @@ public class Storage {
 
     public void save() throws IOException {
         FileWriter fw = new FileWriter("../data/duke.txt");
-        for (Task t : this.taskList) {
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task t = this.taskList.get(i);
             fw.write(t.toFileString() + System.lineSeparator());
         }
         fw.close();

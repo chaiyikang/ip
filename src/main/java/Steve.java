@@ -148,7 +148,7 @@ public class Steve {
                 System.out.println("Bro, don't you know how to use me?");
                 System.out.println(e.getMessage());
             } catch (DateTimeParseException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Invalid date format bruh. Please use the format yyyy-mm-dd.");
             }
               catch (IllegalArgumentException e) {
                 System.out.println("Invalid command. Commands are:");

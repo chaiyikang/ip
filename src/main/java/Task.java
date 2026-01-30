@@ -38,17 +38,13 @@ public abstract class Task {
 
     public abstract String toFileString();
 
-    protected LocalDateTime parseDateTime(String timeString) {
+    protected LocalDateTime parseDateTime(String timeString) throws DateTimeParseException {
         try {
             // handles ISO-8601 format for data file
             return LocalDateTime.parse(timeString);
         } catch (DateTimeParseException e) {
             // handles yyyy-MM-dd format
-            try {
-                return java.time.LocalDate.parse(timeString, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
-            } catch (DateTimeParseException e3) {
-                throw new IllegalArgumentException("Invalid date/time format bro. Please use 'yyyy-MM-dd'.");
-            }
+            return java.time.LocalDate.parse(timeString, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
             
         }
     }

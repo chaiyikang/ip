@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -7,13 +8,7 @@ import java.util.Scanner;
  *
  */
 public class Steve {
-    /**
-     * Every user input must start with one of these commands.
-     *
-    */
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
-    }
+
 
     public static void main(String[] args) {
         Ui ui = new Ui();
@@ -30,14 +25,14 @@ public class Steve {
 
 
         Scanner sc = new Scanner(System.in);
+        Parser parser = new Parser();
         
         boolean shouldExit = false;
         while (!shouldExit) {
             try {
-                String inpt = sc.nextLine();
                 ui.printDivider();
-                String[] inputParts = Steve.parseInput(inpt);
-                Command cmd = Command.valueOf(inputParts[0].toUpperCase()); // throws illegalargexc if invalid
+                String[] inputParts = parser.getInputParts();
+                Command cmd = parser.getCommand(inputParts);
 
                 switch (cmd) {
                 case BYE:
@@ -86,7 +81,7 @@ public class Steve {
                     if (inputParts.length < 2) {
                         throw new UserException("The description of a todo cannot be empty.");
                     }
-                    String desc = inpt.substring(5).trim();
+                    String desc = parser.getRawInput().substring(5).trim();
                     Task newTask = new Todo(desc);
                     storage.addTaskAndSave(newTask);
                     System.out.println("     Got it. I've added this task:");
@@ -97,7 +92,7 @@ public class Steve {
                     if (inputParts.length < 2) {
                         throw new UserException("The description of a deadline cannot be empty.");
                     }
-                    String[] parts = inpt.substring(9).split(" /by ");
+                    String[] parts = parser.getRawInput().substring(9).split(" /by ");
                     if (parts.length < 2) {
                         throw new UserException("Please specify a deadline using /by.");
                     }
@@ -111,7 +106,7 @@ public class Steve {
                     if (inputParts.length < 2) {
                         throw new UserException("The description of an event cannot be empty.");
                     }
-                    String[] eventParts = inpt.substring(6).split(" /from ");
+                    String[] eventParts = parser.getRawInput().substring(6).split(" /from ");
                     if (eventParts.length < 2) {
                         throw new UserException("Please specify the start time using /from.");
                     }
@@ -151,9 +146,7 @@ public class Steve {
 
 
 
-    private static String[] parseInput(String input) {
-        return input.split(" ");
-    }
+
 
     
 }

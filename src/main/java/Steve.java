@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * A Chatbot called Steve.
@@ -146,7 +147,10 @@ public class Steve {
             } catch (UserException e) {
                 System.out.println("Bro, don't you know how to use me?");
                 System.out.println(e.getMessage());
-            } catch (IllegalArgumentException e) {
+            } catch (DateTimeParseException e) {
+                System.out.println(e.getMessage());
+            }
+              catch (IllegalArgumentException e) {
                 System.out.println("Invalid command. Commands are:");
                 for (Command c : Command.values()) {
                     System.out.println(c);

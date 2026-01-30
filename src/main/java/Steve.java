@@ -23,7 +23,9 @@ public class Steve {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello, I'm Steve!\nWhat can I help you with?");
+        Ui ui = new Ui();
+
+        ui.greet();
 
         String filePath = "../data/duke.txt";
         File f = new File(filePath);
@@ -53,14 +55,14 @@ public class Steve {
         while (!shouldExit) {
             try {
                 String inpt = sc.nextLine();
-                Steve.printDivider();
+                ui.printDivider();
                 String[] inputParts = Steve.parseInput(inpt);
                 Command cmd = Command.valueOf(inputParts[0].toUpperCase()); // throws illegalargexc if invalid
 
                 switch (cmd) {
                 case BYE:
                     shouldExit = true;
-                    System.out.println("Bye! Glad I could help!");
+                    ui.sayBye();
                     break;
                 case LIST:
                     Steve.listTasks();
@@ -162,7 +164,7 @@ public class Steve {
                 System.out.println("Uh oh, the guy who made me didn't realise this was gonna happen...");
                 System.out.println(e.getMessage());
             } finally {
-                Steve.printDivider();
+                ui.printDivider();
             }
         }
     }
@@ -177,11 +179,7 @@ public class Steve {
             System.out.println("     " + (i + 1) + "." + Steve.taskList.get(i).toString());
         }
     }
-
-    private static void printDivider() {
-        System.out.println(Steve.divider);
-    }
-
+    
     private static String[] parseInput(String input) {
         return input.split(" ");
     }

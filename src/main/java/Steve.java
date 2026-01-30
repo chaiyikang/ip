@@ -1,10 +1,10 @@
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * A Chatbot called Steve.
@@ -76,6 +76,7 @@ public class Steve {
                     }
                     Task taskToDelete = taskList.get(index);
                     Steve.taskList.remove(index);
+                    Steve.save();
                     System.out.println("Poof! The task is deleted: ");
                     System.out.println("    " + taskToDelete.toString());
                     Steve.reportListSize();
@@ -149,8 +150,7 @@ public class Steve {
                 System.out.println(e.getMessage());
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format bruh. Please use the format yyyy-mm-dd.");
-            }
-              catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("Invalid command. Commands are:");
                 for (Command c : Command.values()) {
                     System.out.println(c);

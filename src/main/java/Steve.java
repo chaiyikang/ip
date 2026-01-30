@@ -52,13 +52,12 @@ public class Steve {
                         throw new UserException("Please specify the task number.");
                     }
                     int index = Integer.parseInt(inputParts[1]) - 1;
-                    if (index < 0 || index > storage.taskList.size() - 1) {
+                    if (index < 0 || index > storage.getTaskListSize() - 1) {
 
                         throw new UserException("Please specify a valid task number.");
                     }
-                    Task taskToDelete = storage.taskList.get(index);
-                    //TODO
-                    storage.taskList.remove(index);
+                    Task taskToDelete = storage.getTask(index);
+                    storage.removeFromTaskList(index);
                     storage.save();
                     System.out.println("Poof! The task is deleted: ");
                     System.out.println("    " + taskToDelete.toString());
@@ -70,15 +69,15 @@ public class Steve {
                         throw new UserException("Please specify the task number.");
                     }
                     int index2 = Integer.parseInt(inputParts[1]) - 1;
-                    if (index2 < 0 || index2 > storage.taskList.size() - 1) {
+                    if (index2 < 0 || index2 > storage.getTaskListSize() - 1) {
 
                         throw new UserException("Please specify a valid task number.");
                     }
                     if (inputParts[0].equals("mark")) {
-                        storage.taskList.get(index2).setDone();
+                        storage.markTask(index2);
                         System.out.println("Ok, I've marked it!");
                     } else {
-                        storage.taskList.get(index2).setNotDone();
+                        storage.unmarkTask(index2);
                         System.out.println("Okay, I've unmarked it!");
                     }
                     storage.listTasks();

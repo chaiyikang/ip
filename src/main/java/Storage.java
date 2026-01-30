@@ -9,7 +9,7 @@ public class Storage {
 
     private static final String FILE_PATH = "../data/duke.txt";
 
-    public ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     public Storage() throws IOException {
         this.taskList = new ArrayList<>();
@@ -20,6 +20,26 @@ public class Storage {
         if (!f.exists()) {
             f.createNewFile();       
         }
+    }
+
+    public void markTask(int index) {
+        this.taskList.get(index).setDone();
+    }
+
+    public void unmarkTask(int index) {
+        this.taskList.get(index).setNotDone();
+    }
+
+    public int getTaskListSize() {
+        return this.taskList.size();
+    }
+
+    public void removeFromTaskList(int index) {
+        this.taskList.remove(index);
+    }
+
+    public Task getTask(int index) {
+        return this.taskList.get(index);
     }
 
     public void reportListSize() {

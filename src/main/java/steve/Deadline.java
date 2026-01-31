@@ -1,4 +1,5 @@
 package steve;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +13,8 @@ public class Deadline extends Task {
     
     @Override
     public String toString() {
-        return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")) + ")";
+        return "[D][" + (this.isDone ? "X" : " ") + "] " 
+                + this.description + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")) + ")";
     }
 
     @Override

@@ -2,6 +2,7 @@ package steve;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -120,6 +121,14 @@ public class Steve {
                     System.out.println("       " + newEventTask);
                     storage.reportListSize();
                     break;
+                case FIND:
+                    if (inputParts.length < 2) {
+                        throw new UserException("Search query cannot be empty!!!");
+                    }
+                    String searchString = parser.getRawInput().substring(6);
+                    ArrayList<Task> matchingTasks = storage.find(searchString);
+                    System.out.println(matchingTasks.size() + " results were found: ");
+                    ui.printListOfTasks(matchingTasks);
                 }
             } catch (UserException e) {
                 System.out.println("Bro, don't you know how to use me?");

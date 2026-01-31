@@ -3,12 +3,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
-    private static final String FILE_PATH = "../data/duke.txt";
+    private static final String FILE_PATH = "./data/steve.txt";
 
     private TaskList taskList;
 
@@ -55,7 +54,7 @@ public class Storage {
     }
 
     public void save() throws IOException {
-        FileWriter fw = new FileWriter("../data/duke.txt");
+        FileWriter fw = new FileWriter(FILE_PATH);
         for (int i = 0; i < this.taskList.size(); i++) {
             Task t = this.taskList.get(i);
             fw.write(t.toFileString() + System.lineSeparator());

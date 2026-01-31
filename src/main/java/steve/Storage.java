@@ -3,7 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Storage {
 
@@ -40,6 +42,10 @@ public class Storage {
 
     public Task getTask(int index) {
         return this.taskList.get(index);
+    }
+
+    public ArrayList<Task> find(String search) {
+        return this.taskList.find(search);
     }
 
     public void reportListSize() {

@@ -1,4 +1,7 @@
 package steve;
+
+import java.util.ArrayList;
+
 public class Ui {
     private static final String DIVIDER = "    __________________________________________________________";
 
@@ -13,6 +16,12 @@ public class Ui {
 
     public void printDivider() {
         System.out.println(DIVIDER);
+    }
+
+    public void printListOfTasks(ArrayList<Task> listOfTasks) {
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + listOfTasks.get(i).toString());
+        }
     }
     
 }

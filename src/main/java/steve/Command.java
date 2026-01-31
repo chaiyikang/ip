@@ -1,3 +1,5 @@
+package steve;
+
 /**
  * Every user input must start with one of these commands.
  *

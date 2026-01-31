@@ -9,8 +9,6 @@ import java.util.Scanner;
  *
  */
 public class Steve {
-
-
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.greet();

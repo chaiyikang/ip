@@ -11,6 +11,12 @@ public class Storage {
 
     private TaskList taskList;
 
+    /**
+     * Returns a new Storage object.
+     * Creates a new file if the data file does not exist.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public Storage() throws IOException {
         this.taskList = new TaskList();
         File f = new File(FILE_PATH);
@@ -22,10 +28,20 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     */
     public void markTask(int index) {
         this.taskList.get(index).setDone();
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     */
     public void unmarkTask(int index) {
         this.taskList.get(index).setNotDone();
     }
@@ -34,6 +50,11 @@ public class Storage {
         return this.taskList.size();
     }
 
+    /**
+     * Removes a task from the task list.
+     *
+     * @param index The index of the task to be removed.
+     */
     public void removeFromTaskList(int index) {
         this.taskList.remove(index);
     }
@@ -42,10 +63,16 @@ public class Storage {
         return this.taskList.get(index);
     }
 
+    /**
+     * Prints the number of tasks in the list.
+     */
     public void reportListSize() {
         System.out.println("     Now you have " + this.taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Prints all the tasks in the list.
+     */
     public void listTasks() {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
@@ -53,6 +80,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current list of tasks to the data file.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void save() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (int i = 0; i < this.taskList.size(); i++) {
@@ -63,11 +95,22 @@ public class Storage {
         
     }
 
+    /**
+     * Adds a task to the task list and saves the list to the data file.
+     *
+     * @param t The task to be added.
+     * @throws IOException If an I/O error occurs.
+     */
     public void addTaskAndSave(Task t) throws IOException{
         this.taskList.add(t);
         this.save();
     }
 
+    /**
+     * Loads tasks from the data file into the task list.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void loadTasks() throws IOException {
         File f = new File(FILE_PATH);
 

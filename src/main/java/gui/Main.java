@@ -1,3 +1,5 @@
+package gui;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -12,7 +14,7 @@ import steve.Steve;
  */
 public class Main extends Application {
 
-    private Steve duke = new Steve();
+    private Steve steve = new Steve();
 
     @Override
     public void start(Stage stage) {
@@ -21,7 +23,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setSteve(duke);  // inject the Duke instance
+            stage.setTitle("Steve");
+            fxmlLoader.<MainWindow>getController().setSteve(steve);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

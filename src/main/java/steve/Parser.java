@@ -1,20 +1,16 @@
 package steve;
 
-import java.util.Scanner;
-
 /**
  * Represents a parser that handles user input.
  */
 public class Parser {
 
-    private Scanner scanner;
     private String rawInput;
 
     /**
      * Returns a new Parser object.
      */
     public Parser() {
-        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -22,10 +18,9 @@ public class Parser {
      *
      * @return A string array containing the parts of the user input.
      */
-    public String[] getInputParts() {
-        String inpt = this.scanner.nextLine();
-        this.rawInput = inpt;
-        return inpt.split(" ");
+    public String[] getInputParts(String input) {
+        this.rawInput = input;
+        return input.split(" ");
     }
 
     /**

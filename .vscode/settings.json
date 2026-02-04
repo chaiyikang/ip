@@ -1,4 +1,7 @@
 {
 	"java.format.settings.url": "eclipse-formatter.xml",
-	"java.checkstyle.configuration": "${workspaceFolder}/.vscode/checkstyle.xml"
+	"java.checkstyle.configuration": "${workspaceFolder}/.vscode/checkstyle.xml",
+	"java.project.sourcePaths": [
+		"src/main/java"
+	]
 }

@@ -6,34 +6,30 @@ import java.util.ArrayList;
  * Represents the user interface of the application.
  */
 public class Ui {
-    private static final String DIVIDER = "    __________________________________________________________";
-
     /**
      * Prints a greeting to the user.
      */
-    public void greet() {
-        System.out.println("Hello, I'm Steve!\nWhat can I help you with?");
+    public String greet() {
+        return "Hello, I'm Steve!\nWhat can I help you with?";
     }
 
     /**
      * Prints a farewell message to the user.
      */
-    public void sayBye() {
-        System.out.println("Bye! Glad I could help!");
-
+    public String sayBye() {
+        return "Bye! Glad I could help!";
     }
 
     /**
-     * Prints a divider line.
+     * Returns a string of the list of tasks
+     * @param listOfTasks
+     * @return a String of the list of tasks
      */
-    public void printDivider() {
-        System.out.println(DIVIDER);
-    }
-
-    public void printListOfTasks(ArrayList<Task> listOfTasks) {
+    public String printListOfTasks(ArrayList<Task> listOfTasks) {
+        String result = "";
         for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.println("     " + (i + 1) + "." + listOfTasks.get(i).toString());
+            result += "     " + (i + 1) + "." + listOfTasks.get(i).toString() + "\n";
         }
+        return result;
     }
-    
 }

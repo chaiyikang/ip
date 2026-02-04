@@ -3,158 +3,149 @@ package steve;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * A Chatbot called Steve.
  *
  */
 public class Steve {
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        ui.greet();
+    private Ui ui;
+    private Storage storage;
+    private Parser parser;
 
-        Storage storage = null;
+    /**
+     * Creates an instance of the Steve Chatbot.
+     */
+    public Steve() {
+        this.ui = new Ui();
+        this.parser = new Parser();
         try {
-            storage = new Storage();
-            storage.loadTasks();
+            this.storage = new Storage();
+            this.storage.loadTasks();
         } catch (IOException e) {
             System.out.println("Uh oh, some I/O error occured...Please restart the program");
-            return;
-        }
-
-
-        Scanner sc = new Scanner(System.in);
-        Parser parser = new Parser();
-        
-        boolean shouldExit = false;
-        while (!shouldExit) {
-            try {
-                ui.printDivider();
-                String[] inputParts = parser.getInputParts();
-                Command cmd = parser.getCommand(inputParts);
-
-                switch (cmd) {
-                case BYE:
-                    shouldExit = true;
-                    ui.sayBye();
-                    break;
-                case LIST:
-                    storage.listTasks();
-                    break;
-                case DELETE:
-                    if (inputParts.length < 2) {
-                        throw new UserException("Please specify the task number.");
-                    }
-                    int index = Integer.parseInt(inputParts[1]) - 1;
-                    if (index < 0 || index > storage.getTaskListSize() - 1) {
-
-                        throw new UserException("Please specify a valid task number.");
-                    }
-                    Task taskToDelete = storage.getTask(index);
-                    storage.removeFromTaskList(index);
-                    storage.save();
-                    System.out.println("Poof! The task is deleted: ");
-                    System.out.println("    " + taskToDelete.toString());
-                    storage.reportListSize();
-                    break;
-                case MARK:
-                case UNMARK:
-                    if (inputParts.length < 2) {
-                        throw new UserException("Please specify the task number.");
-                    }
-                    int index2 = Integer.parseInt(inputParts[1]) - 1;
-                    if (index2 < 0 || index2 > storage.getTaskListSize() - 1) {
-
-                        throw new UserException("Please specify a valid task number.");
-                    }
-                    if (inputParts[0].equals("mark")) {
-                        storage.markTask(index2);
-                        System.out.println("Ok, I've marked it!");
-                    } else {
-                        storage.unmarkTask(index2);
-                        System.out.println("Okay, I've unmarked it!");
-                    }
-                    storage.listTasks();
-                    break;
-                case TODO:
-                    if (inputParts.length < 2) {
-                        throw new UserException("The description of a todo cannot be empty.");
-                    }
-                    String desc = parser.getRawInput().substring(5).trim();
-                    Task newTask = new Todo(desc);
-                    storage.addTaskAndSave(newTask);
-                    System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + newTask);
-                    storage.reportListSize();
-                    break;
-                case DEADLINE:
-                    if (inputParts.length < 2) {
-                        throw new UserException("The description of a deadline cannot be empty.");
-                    }
-                    String[] parts = parser.getRawInput().substring(9).split(" /by ");
-                    if (parts.length < 2) {
-                        throw new UserException("Please specify a deadline using /by.");
-                    }
-                    Task newDeadlineTask = new Deadline(parts[0], parts[1]);
-                    storage.addTaskAndSave(newDeadlineTask);
-                    System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + newDeadlineTask);
-                    storage.reportListSize();
-                    break;
-                case EVENT:
-                    if (inputParts.length < 2) {
-                        throw new UserException("The description of an event cannot be empty.");
-                    }
-                    String[] eventParts = parser.getRawInput().substring(6).split(" /from ");
-                    if (eventParts.length < 2) {
-                        throw new UserException("Please specify the start time using /from.");
-                    }
-                    String eventDesc = eventParts[0];
-                    String[] timeParts = eventParts[1].split(" /to ");
-                    if (timeParts.length < 2) {
-                        throw new UserException("Please specify the end time using /to.");
-                    }
-                    Task newEventTask = new Event(eventDesc, timeParts[0], timeParts[1]);
-                    storage.addTaskAndSave(newEventTask);
-                    System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + newEventTask);
-                    storage.reportListSize();
-                    break;
-                case FIND:
-                    if (inputParts.length < 2) {
-                        throw new UserException("Search query cannot be empty!!!");
-                    }
-                    String searchString = parser.getRawInput().substring(6);
-                    ArrayList<Task> matchingTasks = storage.find(searchString);
-                    System.out.println(matchingTasks.size() + " results were found: ");
-                    ui.printListOfTasks(matchingTasks);
-                }
-            } catch (UserException e) {
-                System.out.println("Bro, don't you know how to use me?");
-                System.out.println(e.getMessage());
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format bruh. Please use the format yyyy-mm-dd.");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command. Commands are:");
-                for (Command c : Command.values()) {
-                    System.out.println(c);
-                }
-            } catch (IOException e) {
-                System.out.println("Uh oh, some I/O error occured...Please restart the program");
-                return;
-            } catch (Exception e) {
-                System.out.println("Uh oh, the guy who made me didn't realise this was gonna happen...");
-                System.out.println(e.getMessage());
-            } finally {
-                ui.printDivider();
-            }
         }
     }
 
+    /**
+     * Gets response from the chatbot.
+     * @param input
+     * @return a String which is the response of the chatbot
+     */
+    public String getResponse(String input) {
+        try {
+            String[] inputParts = this.parser.getInputParts(input);
+            Command cmd = this.parser.getCommand(inputParts);
 
+            switch (cmd) {
+            case BYE:
+                return this.ui.sayBye();
+            case LIST:
+                return this.storage.listTasks();
+            case DELETE:
+                if (inputParts.length < 2) {
+                    throw new UserException("Please specify the task number.");
+                }
+                int index = Integer.parseInt(inputParts[1]) - 1;
+                if (index < 0 || index > this.storage.getTaskListSize() - 1) {
 
+                    throw new UserException("Please specify a valid task number.");
+                }
+                Task taskToDelete = this.storage.getTask(index);
+                this.storage.removeFromTaskList(index);
+                this.storage.save();
+                return "Poof! The task is deleted: " + "\n"
+                        + "    " + taskToDelete.toString() + "\n"
+                        + this.storage.reportListSize();
+            case MARK:
+            case UNMARK:
+                if (inputParts.length < 2) {
+                    throw new UserException("Please specify the task number.");
+                }
+                int index2 = Integer.parseInt(inputParts[1]) - 1;
+                if (index2 < 0 || index2 > this.storage.getTaskListSize() - 1) {
 
+                    throw new UserException("Please specify a valid task number.");
+                }
+                if (inputParts[0].equals("mark")) {
+                    this.storage.markTask(index2);
+                    return "Ok, I've marked it!" + "\n"
+                            + this.storage.listTasks();
 
-    
+                } else {
+                    this.storage.unmarkTask(index2);
+                    return "Okay, I've unmarked it!" + "\n"
+                            + this.storage.listTasks();
+                }
+            case TODO:
+                if (inputParts.length < 2) {
+                    throw new UserException("The description of a todo cannot be empty.");
+                }
+                String desc = this.parser.getRawInput().substring(5).trim();
+                Task newTask = new Todo(desc);
+                this.storage.addTaskAndSave(newTask);
+                return "     Got it. I've added this task:" + "\n"
+                        + "       " + newTask + "\n"
+                        + this.storage.reportListSize();
+            case DEADLINE:
+                if (inputParts.length < 2) {
+                    throw new UserException("The description of a deadline cannot be empty.");
+                }
+                String[] parts = this.parser.getRawInput().substring(9).split(" /by ");
+                if (parts.length < 2) {
+                    throw new UserException("Please specify a deadline using /by.");
+                }
+                Task newDeadlineTask = new Deadline(parts[0], parts[1]);
+                this.storage.addTaskAndSave(newDeadlineTask);
+                return "     Got it. I've added this task:" + "\n"
+                        + "       " + newDeadlineTask + "\n"
+                        + this.storage.reportListSize();
+            case EVENT:
+                if (inputParts.length < 2) {
+                    throw new UserException("The description of an event cannot be empty.");
+                }
+                String[] eventParts = this.parser.getRawInput().substring(6).split(" /from ");
+                if (eventParts.length < 2) {
+                    throw new UserException("Please specify the start time using /from.");
+                }
+                String eventDesc = eventParts[0];
+                String[] timeParts = eventParts[1].split(" /to ");
+                if (timeParts.length < 2) {
+                    throw new UserException("Please specify the end time using /to.");
+                }
+                Task newEventTask = new Event(eventDesc, timeParts[0], timeParts[1]);
+                this.storage.addTaskAndSave(newEventTask);
+                return "     Got it. I've added this task:" + "\n"
+                        + "       " + newEventTask + "\n"
+                        + this.storage.reportListSize();
+            case FIND:
+                if (inputParts.length < 2) {
+                    throw new UserException("Search query cannot be empty!!!");
+                }
+                String searchString = this.parser.getRawInput().substring(6);
+                ArrayList<Task> matchingTasks = this.storage.find(searchString);
+                return matchingTasks.size() + " results were found: " + "\n"
+                        + this.ui.printListOfTasks(matchingTasks);
+            default:
+                throw new UserException("Invalid command. Commands are: todo, deadline, event, list, mark, unmark, delete, find, bye");
+            }
+        } catch (UserException e) {
+            return "Bro, don't you know how to use me?" + "\n"
+                    + e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Invalid date format bruh. Please use the format yyyy-mm-dd.";
+        } catch (IllegalArgumentException e) {
+            String availableCommands = "";
+            for (Command c : Command.values()) {
+                availableCommands += c.toString() + "\n";
+            }
+            return "Invalid command. Commands are:" + "\n"
+                    + availableCommands;
+        } catch (IOException e) {
+            return "Uh oh, some I/O error occured...Please restart the program";
+        } catch (Exception e) {
+            return "Uh oh, the guy who made me didn't realise this was gonna happen..." + "\n"
+                    + e.getMessage();
+        }
+    }
 }

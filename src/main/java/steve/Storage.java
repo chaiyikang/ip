@@ -73,18 +73,19 @@ public class Storage {
     /**
      * Prints the number of tasks in the list.
      */
-    public void reportListSize() {
-        System.out.println("     Now you have " + this.taskList.size() + " tasks in the list.");
+    public String reportListSize() {
+        return "     Now you have " + this.taskList.size() + " tasks in the list.";
     }
 
     /**
      * Prints all the tasks in the list.
      */
-    public void listTasks() {
-        System.out.println("     Here are the tasks in your list:");
+    public String listTasks() {
+        String result = "     Here are the tasks in your list:" + "\n";
         for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println("     " + (i + 1) + "." + this.taskList.get(i).toString());
+            result += "     " + (i + 1) + "." + this.taskList.get(i).toString() + "\n";
         }
+        return result;
     }
 
     /**

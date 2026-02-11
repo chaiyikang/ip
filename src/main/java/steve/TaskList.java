@@ -16,6 +16,7 @@ public class TaskList {
     }
 
     public Task get(int i) {
+        assert i >= 0 && i < this.taskList.size();
         return this.taskList.get(i);
     }
 
@@ -25,6 +26,7 @@ public class TaskList {
      * @param i The index of the task to be removed.
      */
     public void remove(int i) {
+        assert i >= 0 && i < this.taskList.size();
         this.taskList.remove(i);
     }
 

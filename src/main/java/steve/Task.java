@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
 
     /**
      * Returns a new Task object.

@@ -21,6 +21,7 @@ public class Event extends Task {
         super(description);
         this.start = parseDateTime(start);
         this.end = parseDateTime(end);
+        assert !this.start.isAfter(this.end) : "Start time of event cannot be after end time.";
     }
 
     /**

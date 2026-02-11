@@ -36,6 +36,7 @@ public class Steve {
 
             throw new UserException("Please specify a valid task number.");
         }
+                assert index >= 0 && index < this.storage.getTaskListSize();
         Task taskToDelete = this.storage.getTask(index);
         this.storage.removeFromTaskList(index);
         this.storage.save();
@@ -54,6 +55,7 @@ public class Steve {
 
             throw new UserException("Please specify a valid task number.");
         }
+                assert index2 >= 0 && index2 < this.storage.getTaskListSize();
         if (inputParts[0].equals("mark")) {
             this.storage.markTask(index2);
             return "Ok, I've marked it!" + "\n"

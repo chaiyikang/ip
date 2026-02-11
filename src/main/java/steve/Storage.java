@@ -37,6 +37,7 @@ public class Storage {
      * @param index The index of the task to be marked as done.
      */
     public void markTask(int index) {
+        assert index >= 0 && index < this.taskList.size();
         this.taskList.get(index).setDone();
     }
 
@@ -46,6 +47,7 @@ public class Storage {
      * @param index The index of the task to be marked as not done.
      */
     public void unmarkTask(int index) {
+        assert index >= 0 && index < this.taskList.size();
         this.taskList.get(index).setNotDone();
     }
 

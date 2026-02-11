@@ -31,6 +31,7 @@ public class Parser {
      * @throws IllegalArgumentException If the command is invalid.
      */
     public Command getCommand(String[] inputParts) throws IllegalArgumentException{
+        assert inputParts != null && inputParts.length >= 1;
         return Command.valueOf(inputParts[0].toUpperCase());
     }
 

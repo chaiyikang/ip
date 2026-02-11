@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime by;
 
+
     /**
      * Returns a new Deadline object.
      *
@@ -27,7 +28,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D][" + (this.isDone ? "X" : " ") + "] " 
-                + this.description + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")) + ")";
+                + this.description + " (by: " + by.format(Task.DATE_FORMAT) + ")";
     }
 
     /**

@@ -127,6 +127,24 @@ public class Steve {
                 + this.ui.printListOfTasks(matchingTasks);
     }
 
+    private String handleTag(String[] inputParts) throws UserException, IOException {
+        if (inputParts.length < 3) {
+            throw new UserException("Please specify the task number and the tag e.g. tag 1 #fun");
+        }
+        int index = Integer.parseInt(inputParts[1]) - 1;
+        if (index < 0 || index >= this.storage.getTaskListSize()) {
+            throw new UserException("Please specify a valid task number.");
+        }
+        String tag = inputParts[2];
+        if (tag.startsWith("#")) {
+            tag = tag.substring(1);
+        }
+        this.storage.getTask(index).setTag(tag);
+        this.storage.save();
+        return "Ok, I've tagged this task:" + "\n"
+                + "    " + this.storage.getTask(index).toString();
+    }
+
     private String handleCommand(Command cmd, String[] inputParts) throws UserException, IOException{
         switch (cmd) {
         case BYE:
@@ -146,6 +164,8 @@ public class Steve {
             return this.handleEvent(inputParts);
         case FIND:
             return this.handleFind(inputParts);
+        case TAG:
+            return this.handleTag(inputParts);
         default:
             throw new UserException(
                     "Invalid command. Commands are: todo, deadline, event, list, mark, unmark, delete, find, bye");

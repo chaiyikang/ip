@@ -27,8 +27,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + (this.isDone ? "X" : " ") + "] " 
-                + this.description + " (by: " + by.format(Task.DATE_FORMAT) + ")";
+        String tagString = "";
+        if (!this.tag.isEmpty()) {
+            tagString = " #" + this.tag;
+        }
+        return "[D][" + (this.isDone ? "X" : " ") + "] "
+                + this.description + " (by: " + by.format(Task.DATE_FORMAT) + ")" + tagString;
     }
 
     /**
@@ -36,6 +40,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
+        if (!this.tag.isEmpty()) {
+            return "D $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.by + " $ " + this.tag;
+        }
         return "D $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.by;
     }
     

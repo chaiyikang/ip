@@ -138,15 +138,24 @@ public class Storage {
                 switch (type) {
                 case "T":
                     t = new Todo(description);
+                    if (parts.length > 3) {
+                        t.setTag(parts[3]);
+                    }
                     break;
                 case "D":
                     String by = parts[3]; 
                     t = new Deadline(description, by);
+                    if (parts.length > 4) {
+                        t.setTag(parts[4]);
+                    }
                     break;
                 case "E":
                     String start = parts[3];
                     String end = parts[4]; 
                     t = new Event(description, start, end); 
+                    if (parts.length > 5) {
+                        t.setTag(parts[5]);
+                    }
                     break;
                 default:
                     System.out.println("Unknown task type in file: " + type);

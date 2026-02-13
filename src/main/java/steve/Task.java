@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag;
     static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
 
     /**
@@ -19,6 +20,15 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = "";
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getDescription() {
@@ -49,6 +59,9 @@ public abstract class Task {
 
     @Override
     public String toString() {
+        if (!this.tag.isEmpty()) {
+            return "[" + (this.isDone ? "X" : " ") + "] " + this.description + " #" + this.tag;
+        }
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
     }
 

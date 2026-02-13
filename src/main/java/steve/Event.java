@@ -29,9 +29,13 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (this.isDone ? "X" : " ") + "] " 
-            + this.description + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")) 
-            + " to: " + end.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")) + ")";
+        String tagString = "";
+        if (!this.tag.isEmpty()) {
+            tagString = " #" + this.tag;
+        }
+        return "[E][" + (this.isDone ? "X" : " ") + "] "
+                + this.description + " (from: " + start.format(Task.DATE_FORMAT)
+                + " to: " + end.format(Task.DATE_FORMAT) + ")" + tagString;
     }
 
     /**
@@ -39,7 +43,12 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.start + " $ " + this.end;
+        if (!this.tag.isEmpty()) {
+            return "E $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.start
+                    + " $ " + this.end + " $ " + this.tag;
+        }
+        return "E $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.start
+                + " $ " + this.end;
     }
     
 }

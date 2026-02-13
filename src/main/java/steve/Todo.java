@@ -17,7 +17,11 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T][" + (this.isDone ? "X" : " ") + "] " + this.description;
+        String tagString = "";
+        if (!this.tag.isEmpty()) {
+            tagString = " #" + this.tag;
+        }
+        return "[T][" + (this.isDone ? "X" : " ") + "] " + this.description + tagString;
     }
 
     /**
@@ -25,6 +29,9 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
+        if (!this.tag.isEmpty()) {
+            return "T $ " + (this.isDone ? "1" : "0") + " $ " + this.description + " $ " + this.tag;
+        }
         return "T $ " + (this.isDone ? "1" : "0") + " $ " + this.description;
     }
 

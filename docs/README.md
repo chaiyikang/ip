@@ -1,30 +1,57 @@
-# Duke User Guide
+# Steve Chatbot User Guide
 
-// Update the title above to match the actual product name
+## Introduction
 
-// Product screenshot goes here
+Steve is a simple chatbot that helps you manage your tasks. You can add, delete, mark, and unmark tasks. You can also list all your tasks and find tasks by keyword.
 
-// Product intro goes here
+## Commands
 
-## Adding deadlines
+### Adding a task
 
-// Describe the action and its outcome.
+#### `todo`
+Adds a todo task.
+Format: `todo <description>`
+Example: `todo read book`
 
-// Give examples of usage
+#### `deadline`
+Adds a deadline task.
+Format: `deadline <description> /by <yyyy-mm-dd>`
+Example: `deadline return book /by 2024-09-22`
 
-Example: `keyword (optional arguments)`
+#### `event`
+Adds an event task.
+Format: `event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
+Example: `event project meeting /from 2024-09-23 /to 2024-09-24`
 
-// A description of the expected outcome goes here
+### Listing tasks
+#### `list`
+Lists all tasks.
+Format: `list`
 
-```
-expected output
-```
+### Marking and unmarking tasks
+#### `mark`
+Marks a task as done.
+Format: `mark <task number>`
+Example: `mark 1`
 
-## Feature ABC
+#### `unmark`
+Marks a task as not done.
+Format: `unmark <task number>`
+Example: `unmark 1`
 
-// Feature details
+### Deleting a task
+#### `delete`
+Deletes a task.
+Format: `delete <task number>`
+Example: `delete 1`
 
+### Finding a task
+#### `find`
+Finds tasks containing a keyword.
+Format: `find <keyword>`
+Example: `find book`
 
-## Feature XYZ
-
-// Feature details
+### Exiting the program
+#### `bye`
+Exits the program.
+Format: `bye`

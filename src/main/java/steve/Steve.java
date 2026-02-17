@@ -62,15 +62,17 @@ public class Steve {
                 + this.storage.reportListSize();
     }
 
-    private String handleMark(String[] inputParts) throws UserException {
+    private String handleMark(String[] inputParts) throws UserException, IOException {
         // Improvement: logic delegates to helper method
         int index = parseAndValidateIndex(inputParts);
 
         if (inputParts[0].equals("mark")) {
             this.storage.markTask(index);
+            this.storage.save();
             return "Ok, I've marked it!\n" + this.storage.listTasks();
         } else {
             this.storage.unmarkTask(index);
+            this.storage.save();
             return "Okay, I've unmarked it!\n" + this.storage.listTasks();
         }
     }

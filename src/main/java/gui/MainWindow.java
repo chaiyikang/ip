@@ -31,7 +31,6 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
     public void setSteve(Steve s) {
         steve = s;
     }
@@ -49,5 +48,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye")) {
+            javafx.application.Platform.exit();
+        }
     }
 }

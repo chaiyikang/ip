@@ -50,7 +50,7 @@ public class Steve {
     }
 
     private String handleDelete(String[] inputParts) throws UserException, IOException {
-        // Improvement: logic delegates to helper method
+        // AI Improvement: logic delegates to helper method
         int index = parseAndValidateIndex(inputParts);
         
         Task taskToDelete = this.storage.getTask(index);
@@ -63,7 +63,7 @@ public class Steve {
     }
 
     private String handleMark(String[] inputParts) throws UserException, IOException {
-        // Improvement: logic delegates to helper method
+        // AI Improvement: logic delegates to helper method
         int index = parseAndValidateIndex(inputParts);
 
         if (inputParts[0].equals("mark")) {
@@ -139,7 +139,7 @@ public class Steve {
             throw new UserException("Please specify the task number and the tag e.g. tag 1 #fun");
         }
         
-        // Improvement: logic delegates to helper method
+        // AI Improvement: logic delegates to helper method
         int index = parseAndValidateIndex(inputParts);
         
         String tag = inputParts[2];
@@ -194,10 +194,10 @@ public class Steve {
         } catch (DateTimeParseException e) {
             return "Invalid date format bruh. Please use the format yyyy-mm-dd.";
         } catch (NumberFormatException e) {
-            // Improvement: Specific handling for non-integer inputs in commands
+            // AI Improvement: Specific handling for non-integer inputs in commands
             return "Please enter a valid numeric task ID.";
         } catch (IllegalArgumentException e) {
-            // Improvement: StringBuilder for loop concatenation
+            // AI Improvement: StringBuilder for loop concatenation
             StringBuilder availableCommands = new StringBuilder();
             for (Command c : Command.values()) {
                 availableCommands.append(c.toString()).append("\n");
